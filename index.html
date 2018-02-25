@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Oswald" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">-->
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -88,20 +89,24 @@
         <div id="winner-pop-up" class="overlay">
             <div class="popup">
                 <h2>Well Done</h2>
-                <a class="close" href=# >X</a>
-                <div class="content-1">
-                    You have a super Memory!
+                <a class="close" href="#" >X</a>
+                <div class="pop-up-content-1">
+                    You have a Super Memory!
                 </div>
-                <div class="content-2">
+                <div class="pop-up-content-2">
                     <p>You made <span id=finalMove> </span> moves </p>
                     <p>in <span id=totalTime> </span> </p>
                     <p>Rating:  <span id=starRating></span></p>
                 </div>
-                <button id="play-again"onclick="playAgain()">
-                    Play again?</a>
+                <button id="play-again" onclick="playAgain()">
+                    Play again ?</a>
                 </button>
             </div>
         </div>
+
+          <!-- inspiration to keep going -->
+          <h2 id="keep-going"></h2>
+
 
     </div>
     <script src="js/app.js"></script>

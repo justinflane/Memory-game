@@ -113,6 +113,7 @@ h1 {
 .score-panel {
 	text-align: left;
 	margin-bottom: 10px;
+  font-family: 'Oswald', sans-serif;
 }
 
 .score-panel .stars {
@@ -143,7 +144,7 @@ h1 {
 
 
 /*
- * Styles for congratulations modal
+ * Styles for winner pop up modal
  */
 
 
@@ -196,11 +197,12 @@ h1 {
 	color: #E5F720;
 }
 
-.popup .content-1,
-.content-2 {
+.popup .pop-up-content-1,
+.pop-up-content-2 {
 	max-height: 30%;
 	overflow: auto;
 	text-align: center;
+  font-family: 'Oswald', sans-serif;
 }
 
 .show {
@@ -213,7 +215,7 @@ h1 {
 }
 
 #play-again {
-	background-color: #FFFC19;
+	background-color: #e2043b;
 	padding: 0.7rem 1rem;
 	font-size: 1.1rem;
 	display: block;
@@ -222,7 +224,10 @@ h1 {
 	font-family: 'Luckiest Guy', cursive;
 	color: #ffffff;
 	border-radius: 10px;
+  cursor: pointer;
 }
+
+
 
 
 

@@ -23,14 +23,16 @@ let matchedCard = document.getElementsByClassName("match");
 let starsList = document.querySelectorAll(".stars li");
 
 // pop-up on win game
-let modal = document.getElementById("winner-pop-up");
+let modalPopUp = document.getElementById("winner-pop-up");
 
 // close close pop-up
 let closeIcon = document.querySelector(".close");
 
 // array to hold opened cards
-var openedCards = [];
+let openedCards = [];
 
+//inspirational message - need to get this added in when stars get to one
+let keepGoing = document.getElementById("keep-going");
 
 
 
@@ -124,13 +126,16 @@ function matched(){
 function unmatched(){
     openedCards[0].classList.add("unmatched");
     openedCards[1].classList.add("unmatched");
+    keepGoing.innerHTML = "Try Again";
     disable();
     setTimeout(function(){
         openedCards[0].classList.remove("show", "open", "no-event","unmatched");
         openedCards[1].classList.remove("show", "open", "no-event","unmatched");
         enable();
         openedCards = [];
-    },1000);
+        keepGoing.innerHTML = "";
+
+    },1500);
 }
 
 
@@ -200,6 +205,7 @@ function startTimer(){
 }
 
 
+
 // when all cards match and game is won display modal pop up showing results
 function congratulations(){
     if (matchedCard.length === 16){
@@ -207,7 +213,7 @@ function congratulations(){
         finalTime = timer.innerHTML;
 
         // add show class to overlay class to show modal
-        modal.classList.add("show");
+        modalPopUp.classList.add("show");
 
         // declare star rating variable
         let starRating = document.querySelector(".stars").innerHTML;
@@ -224,18 +230,20 @@ function congratulations(){
 
 function closeModal(){
     closeIcon.addEventListener("click", function(close){
-        modal.classList.remove("show");
+        modalPopUp.classList.remove("show");
         //starts game again from X button
         startGame();
     });
 }
 
 
-//starts game again from play again button
+//starts game again from play again button - eventHandler
 function playAgain(){
-    modal.classList.remove("show");
+    modalPopUp.classList.remove("show");
     startGame();
 }
+
+
 
 
 // this loop will add event listeners to each card so they can perform their actions
