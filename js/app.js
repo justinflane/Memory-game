@@ -1,3 +1,5 @@
+//Declaring variables
+
 // this array holds all cards
 let card = document.getElementsByClassName("card");
 let cards = [...card];
@@ -17,17 +19,19 @@ const stars = document.querySelectorAll(".fa-star");
 // matched cards
 let matchedCard = document.getElementsByClassName("match");
 
- // stars
- let starsList = document.querySelectorAll(".stars li");
+// stars
+let starsList = document.querySelectorAll(".stars li");
 
- // pop-up on win game
- let modal = document.getElementById("popup1");
+// pop-up on win game
+let modal = document.getElementById("winner-pop-up");
 
- // close close pop-up
- let closeicon = document.querySelector(".close");
+// close close pop-up
+let closeIcon = document.querySelector(".close");
 
- // array to hold opened cards
+// array to hold opened cards
 var openedCards = [];
+
+
 
 
 // Shuffle cards - FEND
@@ -46,31 +50,34 @@ function shuffle(array) {
 };
 
 
-// function to start a new play
+// function to start a new play - resets cards, moves and timer
 function startGame(){
     // shuffle deck
     cards = shuffle(cards);
-    // remove all exisiting classes from each card
-    for (var i = 0; i < cards.length; i++){
+    // remove exisiting classes from each card and reset to play
+    for (let i = 0; i < cards.length; i++){
         deck.innerHTML = "";
         [].forEach.call(cards, function(item) {
             deck.appendChild(item);
         });
+        //classList accesses an elements list of classes
         cards[i].classList.remove("show", "open", "match", "disabled");
     }
+
     // reset moves
     moves = 0;
     counter.innerHTML = moves;
+
     // reset rating
-    for (var i= 0; i < stars.length; i++){
-        stars[i].style.color = "#FFD700";
+    for (let i = 0; i < stars.length; i++){
         stars[i].style.visibility = "visible";
     }
-    //reset timer
+
+    //reset timer - variables declared below
     second = 0;
     minute = 0;
     hour = 0;
-    var timer = document.querySelector(".timer");
+    let timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
 }
@@ -78,18 +85,20 @@ function startGame(){
 // shuffles cards when page is either refreshed or click on refresh icon occurs
 document.body.onload = startGame();
 
-// @description toggles open and show class to display cards
-var displayCard = function (){
+// toggles open and show class to display when clicked on cards
+let displayCard = function (){
     this.classList.toggle("open");
     this.classList.toggle("show");
     this.classList.toggle("disabled");
 };
 
 
-// @description add opened cards to OpenedCards list and check if cards are match or not
+// add opened cards to OpenedCards list and check if cards are match or not
+// if the length of the array is two then the match is made - because the type
+// is the same for both
 function cardOpen() {
     openedCards.push(this);
-    var len = openedCards.length;
+    let len = openedCards.length;
     if(len === 2){
         moveCounter();
         if(openedCards[0].type === openedCards[1].type){
@@ -101,7 +110,7 @@ function cardOpen() {
 };
 
 
-// @description when cards match
+// if opened cards are a match add/remove the correct classes to keep playing
 function matched(){
     openedCards[0].classList.add("match", "disabled");
     openedCards[1].classList.add("match", "disabled");
@@ -111,7 +120,7 @@ function matched(){
 }
 
 
-// description when cards don't match
+// when cards don't match set them to unmatched and reset (remove classes) after 1second
 function unmatched(){
     openedCards[0].classList.add("unmatched");
     openedCards[1].classList.add("unmatched");
@@ -121,19 +130,19 @@ function unmatched(){
         openedCards[1].classList.remove("show", "open", "no-event","unmatched");
         enable();
         openedCards = [];
-    },1100);
+    },1000);
 }
 
 
-// @description disable cards temporarily
-function disable(){
+// adds extra class so to disable card in cards array
+function disable() {
     Array.prototype.filter.call(cards, function(card){
         card.classList.add('disabled');
     });
 }
 
 
-// @description enable cards and disable matched cards
+// adds disabled to matched cards
 function enable(){
     Array.prototype.filter.call(cards, function(card){
         card.classList.remove('disabled');
@@ -144,95 +153,92 @@ function enable(){
 }
 
 
-// @description count player's moves
+// count player's moves and start timer when moves === 1
 function moveCounter(){
     moves++;
     counter.innerHTML = moves;
-    //start timer on first click
-    if(moves == 1){
+
+    if(moves === 1){
         second = 0;
         minute = 0;
         hour = 0;
         startTimer();
     }
-    // setting rates based on moves
-    if (moves > 8 && moves < 12){
-        for( i= 0; i < 3; i++){
+    // set stars based on number of moves
+    if (moves > 5 && moves <= 10){
+        for( i = 0; i < 3; i++){
             if(i > 1){
-                stars[i].style.visibility = "collapse";
+                stars[i].style.display = "none";
             }
         }
     }
-    else if (moves > 13){
+    else if (moves > 15){
         for( i= 0; i < 3; i++){
             if(i > 0){
-                stars[i].style.visibility = "collapse";
+                stars[i].style.display = "none";
             }
         }
     }
 }
 
 
-// @description game timer
-var second = 0, minute = 0; hour = 0;
+// set up for game timer - every second increment
+var second = 0, minute = 0;
 var timer = document.querySelector(".timer");
 var interval;
+
 function startTimer(){
     interval = setInterval(function(){
-        timer.innerHTML = minute+"mins "+second+"secs";
+        timer.innerHTML = minute + " mins " + second + " secs";
         second++;
-        if(second == 60){
+        if(second === 60){
             minute++;
-            second=0;
+            second = 0;
         }
-        if(minute == 60){
-            hour++;
-            minute = 0;
-        }
+
     },1000);
 }
 
 
-// @description congratulations when all cards match, show modal and moves, time and rating
+// when all cards match and game is won display modal pop up showing results
 function congratulations(){
-    if (matchedCard.length == 16){
+    if (matchedCard.length === 16){
         clearInterval(interval);
         finalTime = timer.innerHTML;
 
-        // show congratulations modal
+        // add show class to overlay class to show modal
         modal.classList.add("show");
 
         // declare star rating variable
-        var starRating = document.querySelector(".stars").innerHTML;
+        let starRating = document.querySelector(".stars").innerHTML;
 
-        //showing move, rating, time on modal
+        //show # of moves, time taken and stars on pop-up
         document.getElementById("finalMove").innerHTML = moves;
         document.getElementById("starRating").innerHTML = starRating;
         document.getElementById("totalTime").innerHTML = finalTime;
 
-        //closeicon on modal
+        // close pop up icon
         closeModal();
     };
 }
 
-
-// @description close icon on modal
 function closeModal(){
-    closeicon.addEventListener("click", function(e){
+    closeIcon.addEventListener("click", function(close){
         modal.classList.remove("show");
+        //starts game again from X button
         startGame();
     });
 }
 
 
-// @desciption for user to play Again
+//starts game again from play again button
 function playAgain(){
     modal.classList.remove("show");
     startGame();
 }
 
 
-// loop to add event listeners to each card
+// this loop will add event listeners to each card so they can perform their actions
 for (var i = 0; i < cards.length; i++){
     card = cards[i];
     card.addEventListener("click", displayCard);
