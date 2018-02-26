@@ -70,9 +70,9 @@ function startGame(){
     moves = 0;
     counter.innerHTML = moves;
 
-    // reset rating
-    for (let i = 0; i < stars.length; i++){
-        stars[i].style.visibility = "visible";
+    // reset stars
+    for (var i = 0; i < stars.length; i++){
+        stars[i].style.display = "block";
     }
 
     //reset timer - variables declared below
@@ -100,8 +100,8 @@ let displayCard = function (){
 // is the same for both
 function cardOpen() {
     openedCards.push(this);
-    let len = openedCards.length;
-    if(len === 2){
+    let lenCards = openedCards.length;
+    if(lenCards === 2){
         moveCounter();
         if(openedCards[0].type === openedCards[1].type){
             matched();
