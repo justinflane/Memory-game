@@ -54,6 +54,8 @@ function shuffle(array) {
 
 // function to start a new play - resets cards, moves and timer
 function startGame(){
+    //added this line to stop bug from opening unwanted card 
+    openedCards = [];
     // shuffle deck
     cards = shuffle(cards);
     // remove exisiting classes from each card and reset to play
