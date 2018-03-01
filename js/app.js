@@ -53,9 +53,10 @@ function shuffle(array) {
 
 
 // function to start a new play - resets cards, moves and timer
+
+
 function startGame(){
-    //added this line to stop bug from opening unwanted card
-    openedCards = [];
+
     // shuffle deck
     cards = shuffle(cards);
     // remove exisiting classes from each card and reset to play
@@ -65,9 +66,9 @@ function startGame(){
             deck.appendChild(item);
         });
         //classList accesses an elements list of classes
-        //added this line to stop open cards opening
-        cards[i].classList.remove("show", "open", "match", "unmatched", "disabled");
+        cards[i].classList.remove("show", "open", "match", "disabled", "unmatched");
     }
+
 
     // reset moves
     moves = 0;
@@ -85,11 +86,14 @@ function startGame(){
     let timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
     clearInterval(interval);
-
 }
+
+
 
 // shuffles cards when page is either refreshed or click on refresh icon occurs
 document.body.onload = startGame();
+
+
 
 // toggles open and show class to display when clicked on cards
 let displayCard = function (){
@@ -105,7 +109,7 @@ let displayCard = function (){
 function cardOpen() {
     openedCards.push(this);
     let lenCards = openedCards.length;
-    if(lenCards === 2){
+    if(lenCards === 2) {
         moveCounter();
         if(openedCards[0].type === openedCards[1].type){
             matched();
@@ -113,7 +117,7 @@ function cardOpen() {
             unmatched();
         }
     }
-}
+};
 
 
 // if opened cards are a match add/remove the correct classes to keep playing
@@ -122,7 +126,7 @@ function matched(){
     openedCards[1].classList.add("match", "disabled");
     openedCards[0].classList.remove("show", "open", "no-event");
     openedCards[1].classList.remove("show", "open", "no-event");
-    //openedCards = [];
+    openedCards = [];
 }
 
 
@@ -132,24 +136,21 @@ function unmatched(){
     openedCards[1].classList.add("unmatched");
     keepGoing.innerHTML = "Try Again";
     disable();
-
     setTimeout(function(){
-        openedCards[0].classList.remove("show", "open", "no-event", "unmatched");
-        openedCards[1].classList.remove("show", "open", "no-event", "unmatched");
+        openedCards[0].classList.remove("show", "open", "no-event","unmatched");
+        openedCards[1].classList.remove("show", "open", "no-event","unmatched");
         enable();
         openedCards = [];
         keepGoing.innerHTML = "";
 
     },1500);
-
 }
-
 
 
 // adds extra class so to disable card in cards array
 function disable() {
     Array.prototype.filter.call(cards, function(card){
-        card.classList.add("disabled");
+        card.classList.add('disabled');
     });
 }
 
@@ -157,7 +158,7 @@ function disable() {
 // adds disabled to matched cards
 function enable(){
     Array.prototype.filter.call(cards, function(card){
-        card.classList.remove("disabled");
+        card.classList.remove('disabled');
         for(var i = 0; i < matchedCard.length; i++){
             matchedCard[i].classList.add("disabled");
         }
@@ -230,7 +231,7 @@ function congratulations(){
         document.getElementById("starRating").innerHTML = starRating;
         document.getElementById("totalTime").innerHTML = finalTime;
 
-        // close pop up icon
+        // close pop up icon //
         closeModal();
     };
 }
@@ -258,5 +259,5 @@ for (var i = 0; i < cards.length; i++){
     card = cards[i];
     card.addEventListener("click", displayCard);
     card.addEventListener("click", cardOpen);
-    card.addEventListener("click",congratulations);
+    card.addEventListener("click", congratulations);
 };
